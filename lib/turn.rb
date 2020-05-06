@@ -39,8 +39,16 @@ class Turn
     @spoils_of_war
   end
 
-  def award_spoils
+  def award_spoils(winner)
     # this method will add each of the cards in the @spoils_of_war array to the winner of the turn.
+    winners_deck = winner.deck.cards
+    @spoils_of_war.each do |card|
+      winners_deck << card
+    end
+    # this method leaves @spoils_of_war intact;
+    # do we actually want to remove those cards from
+    # @spoils_of_war permanently and into
+    # the winner's deck?
   end
 
   def winner
@@ -53,12 +61,3 @@ class Turn
     end
   end
 end
-
-
-# TURN TYPE HASH
-
-# { basic: @player1.deck.rank_of_card_at(0) != @player2.deck.rank_of_card_at(0),
-#   war: @player1.deck.rank_of_card_at(0) == @player2.deck.rank_of_card_at(0),
-#   mutually_assured_destruction: @player1.deck.rank_of_card_at(0) == @player2.deck.rank_of_card_at(0) &&
-#   @player1.deck.rank_of_card_at(2) == @player2.deck.rank_of_card_at(2)
-# }

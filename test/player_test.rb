@@ -5,7 +5,7 @@ require './lib/deck'
 require './lib/player'
 require 'pry'
 
-class DeckTest < Minitest::Test
+class PlayerTest < Minitest::Test
 
   def setup
 
