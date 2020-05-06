@@ -42,13 +42,20 @@ class DeckTest < Minitest::Test
     assert_equal [], @turn.spoils_of_war
   end
 
-  def test_it_has_a_type
+  def test_turn_is_basic
+    # this tests everything that happens when
+    # a turn is :basic 
     assert_equal :basic, @turn.type
+    winner = @turn.winner
+    assert_equal "Megan", winner.name
+
+    # the following asserts that the 2 cards that were
+    # shifted (removed) from the top of each player's
+    # deck were then added to @spoils_of_war
+    assert_equal @turn.spoils_of_war, @turn.pile_cards
   end
 
-  def test_winner
-    assert_equal "Megan", @turn.winner.name
-  end
 
-  
+
+
 end
