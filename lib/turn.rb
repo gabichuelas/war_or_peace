@@ -36,7 +36,7 @@ class Turn
         @player2.deck.cards.shift
       end
     end
-    @spoils_of_war
+    @spoils_of_war 
   end
 
   def award_spoils(winner)

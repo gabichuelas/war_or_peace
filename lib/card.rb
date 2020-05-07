@@ -6,4 +6,3 @@ class Card
     @rank = rank
   end
 end
-# comment to test branch!
