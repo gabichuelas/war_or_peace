@@ -87,7 +87,8 @@ class TurnTest < Minitest::Test
     # the following asserts that the 2 cards that were
     # shifted (removed) from the top of each player's
     # deck were then added to @spoils_of_war
-    assert_equal turn.spoils_of_war, turn.pile_cards
+    turn.pile_cards
+    assert_equal [@card1, @card3], turn.spoils_of_war
     # assert_equal [ array of specific cards that would come out of pile_card ]
     # test that player's deck was affected
   end
@@ -103,11 +104,13 @@ class TurnTest < Minitest::Test
     # Players start with 4 cards each,
     # they each play 1, and winner takes
     # both cards played, which == 5 in their deck/hand.
+
     winner = turn.winner
     turn.pile_cards
-
     turn.award_spoils(winner)
+    
     assert_equal 5, winner.deck.cards.count
+    assert_equal [], turn.spoils_of_war
   end
 
   # WAR TURN TESTS
@@ -143,7 +146,8 @@ class TurnTest < Minitest::Test
     player2 = Player.new("Aurora", deck2)
     turn = Turn.new(player1, player2)
     # ------------------
-    assert_equal turn.spoils_of_war, turn.pile_cards
+    turn.pile_cards
+    assert_equal [@card1, @card2, @card5, @card4, @card3, @card6], turn.spoils_of_war
   end
 
   def test_it_awards_spoils_to_turn_winner
@@ -191,7 +195,7 @@ class TurnTest < Minitest::Test
     assert_equal "No Winner", turn.winner
   end
 
-  def test_it_can_pile_cards_into_spoils_of_war
+  def test_it_can_remove_cards_from_both_players_that_no_one_keeps
     # MAD turn decks; only card6 changes
     card6 = Card.new(:diamond, '8', 8)
     deck1 = Deck.new([@card1, @card2, @card5, @card8])
@@ -200,10 +204,12 @@ class TurnTest < Minitest::Test
     player2 = Player.new("Aurora", deck2)
     turn = Turn.new(player1, player2)
     # ------------------
-    assert_equal turn.spoils_of_war, turn.pile_cards
+    turn.pile_cards
+    assert_equal [], turn.spoils_of_war
+    # neither player gets cards in this type of turn
   end
 
-  def test_it_awards_spoils_to_turn_winner
+  def test_it_awards_no_spoils
     # MAD turn decks; only card6 changes
     card6 = Card.new(:diamond, '8', 8)
     deck1 = Deck.new([@card1, @card2, @card5, @card8])

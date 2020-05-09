@@ -35,25 +35,20 @@ class Turn
       3.times do
         @player2.deck.cards.shift
       end
+        "All cards lost"
     end
-    @spoils_of_war 
+    # @spoils_of_war
   end
 
   def award_spoils(winner)
-    # this method will add each of the cards in the @spoils_of_war array to the winner of the turn.
     if winner.class == Player
       winners_deck = winner.deck.cards
-      @spoils_of_war.each do |card|
-        winners_deck << card
+      @spoils_of_war.count.times do
+        winners_deck << @spoils_of_war.shift
       end
     else
       return "No spoils to award!"
     end
-
-    # this method leaves @spoils_of_war intact;
-    # do we actually want to remove those cards from
-    # @spoils_of_war permanently and into
-    # the winner's deck?
   end
 
   def winner
