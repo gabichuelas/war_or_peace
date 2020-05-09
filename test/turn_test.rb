@@ -88,8 +88,10 @@ class TurnTest < Minitest::Test
     # deck were then added to @spoils_of_war
     turn.pile_cards
     assert_equal [@card1, @card3], turn.spoils_of_war
-    # assert_equal [ array of specific cards that would come out of pile_card ]
     # test that player's deck was affected
+    assert_equal 3, player1.deck.cards.count
+    assert_equal 3, player2.deck.cards.count
+
   end
 
   def test_basic_awards_spoils_to_turn_winner
@@ -100,17 +102,12 @@ class TurnTest < Minitest::Test
     player1 = Player.new("Megan", deck1)
     player2 = Player.new("Aurora", deck2)
     turn = Turn.new(player1, player2)
-    # On a BASIC turn,
-    # Players start with 4 cards each,
-    # they each play 1, and winner takes
-    # both cards played, which == 5 in their deck/hand.
 
     winner = turn.winner
     turn.pile_cards
     turn.award_spoils(winner)
 
     assert_equal 5, winner.deck.cards.count
-    assert_equal [], turn.spoils_of_war
   end
 
   # WAR TURN TESTS
