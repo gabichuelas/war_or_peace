@@ -4,7 +4,7 @@ require './lib/card'
 require './lib/deck'
 require './lib/player'
 require './lib/turn'
-require 'pry'
+
 
 class TurnTest < Minitest::Test
 
@@ -54,18 +54,17 @@ class TurnTest < Minitest::Test
   end
 
   # BASIC TURN TESTS
-  def test_it_is_basic
+  def test_is_basic
     #BASIC turn decks
     deck1 = Deck.new([@card1, @card2, @card5, @card8])
     deck2 = Deck.new([@card3, @card4, @card6, @card7])
     player1 = Player.new("Megan", deck1)
     player2 = Player.new("Aurora", deck2)
     turn = Turn.new(player1, player2)
-
     assert_equal :basic, turn.type
   end
 
-  def test_it_has_a_winner
+  def test_basic_has_a_winner
     #BASIC turn decks
     deck1 = Deck.new([@card1, @card2, @card5, @card8])
     deck2 = Deck.new([@card3, @card4, @card6, @card7])
@@ -77,7 +76,7 @@ class TurnTest < Minitest::Test
     assert_equal "Megan", winner.name
   end
 
-  def test_it_can_pile_cards_into_spoils_of_war
+  def test_basic_can_pile_cards
     #BASIC turn decks
     deck1 = Deck.new([@card1, @card2, @card5, @card8])
     deck2 = Deck.new([@card3, @card4, @card6, @card7])
@@ -93,7 +92,8 @@ class TurnTest < Minitest::Test
     # test that player's deck was affected
   end
 
-  def test_it_awards_spoils_to_turn_winner
+  def test_basic_awards_spoils_to_turn_winner
+
     #BASIC turn decks
     deck1 = Deck.new([@card1, @card2, @card5, @card8])
     deck2 = Deck.new([@card3, @card4, @card6, @card7])
@@ -108,7 +108,7 @@ class TurnTest < Minitest::Test
     winner = turn.winner
     turn.pile_cards
     turn.award_spoils(winner)
-    
+
     assert_equal 5, winner.deck.cards.count
     assert_equal [], turn.spoils_of_war
   end
@@ -126,7 +126,7 @@ class TurnTest < Minitest::Test
     assert_equal :war, turn.type
   end
 
-  def test_it_has_a_winner
+  def test_war_has_a_winner
     # WAR turn decks
     deck1 = Deck.new([@card1, @card2, @card5, @card8])
     deck2 = Deck.new([@card4, @card3, @card6, @card7])
@@ -138,7 +138,7 @@ class TurnTest < Minitest::Test
     assert_equal "Aurora", winner.name
   end
 
-  def test_it_can_pile_cards_into_spoils_of_war
+  def test_war_can_pile_cards
     # WAR turn decks
     deck1 = Deck.new([@card1, @card2, @card5, @card8])
     deck2 = Deck.new([@card4, @card3, @card6, @card7])
@@ -150,7 +150,7 @@ class TurnTest < Minitest::Test
     assert_equal [@card1, @card2, @card5, @card4, @card3, @card6], turn.spoils_of_war
   end
 
-  def test_it_awards_spoils_to_turn_winner
+  def test_war_awards_spoils_to_turn_winner
     # WAR turn decks
     deck1 = Deck.new([@card1, @card2, @card5, @card8])
     deck2 = Deck.new([@card4, @card3, @card6, @card7])
@@ -163,9 +163,10 @@ class TurnTest < Minitest::Test
     # they each play 3 cards, and winner takes
     # all cards played, which == 7 in their deck/hand.
     winner = turn.winner
-    turn.pile_cards
 
+    turn.pile_cards
     turn.award_spoils(winner)
+
     assert_equal 7, winner.deck.cards.count
   end
 
@@ -182,7 +183,7 @@ class TurnTest < Minitest::Test
     assert_equal :mutually_assured_destruction, turn.type
   end
 
-  def test_it_has_a_winner
+  def test_mad_has_a_winner
     # MAD turn decks; only card6 changes
     card6 = Card.new(:diamond, '8', 8)
     deck1 = Deck.new([@card1, @card2, @card5, @card8])
@@ -195,7 +196,7 @@ class TurnTest < Minitest::Test
     assert_equal "No Winner", turn.winner
   end
 
-  def test_it_can_remove_cards_from_both_players_that_no_one_keeps
+  def test_mad_can_remove_cards_from_players
     # MAD turn decks; only card6 changes
     card6 = Card.new(:diamond, '8', 8)
     deck1 = Deck.new([@card1, @card2, @card5, @card8])
@@ -209,7 +210,7 @@ class TurnTest < Minitest::Test
     # neither player gets cards in this type of turn
   end
 
-  def test_it_awards_no_spoils
+  def test_mad_awards_no_spoils
     # MAD turn decks; only card6 changes
     card6 = Card.new(:diamond, '8', 8)
     deck1 = Deck.new([@card1, @card2, @card5, @card8])

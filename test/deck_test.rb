@@ -35,7 +35,7 @@ class DeckTest < Minitest::Test
   end
 
   def test_card_rank_from_deck
-
+    
     assert_equal 12, @deck.rank_of_card_at(0)
     assert_equal 14, @deck.rank_of_card_at(2)
 
