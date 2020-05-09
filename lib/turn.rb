@@ -7,15 +7,22 @@ class Turn
     @spoils_of_war = []
 
     # control flow to determine what the turn.type is:
-    @type = if @player1.deck.rank_of_card_at(0) == @player2.deck.rank_of_card_at(0) && @player1.deck.rank_of_card_at(2) == @player2.deck.rank_of_card_at(2)
+    @type = if @player1.deck.rank_of_card_at(0) ==
+      @player2.deck.rank_of_card_at(0) && @player1.deck.rank_of_card_at(2) ==
+      @player2.deck.rank_of_card_at(2)
       :mutually_assured_destruction
     elsif @player1.deck.rank_of_card_at(0) == @player2.deck.rank_of_card_at(0)
       :war
     elsif @player1.deck.rank_of_card_at(0) != @player2.deck.rank_of_card_at(0)
       :basic
     end
-
   end
+
+  # def start
+  #   self.pile_cards
+  #   winner = self.winner
+  #   self.award_spoils(winner)
+  # end
 
   def pile_cards
     if @type == :basic
@@ -40,14 +47,14 @@ class Turn
     # @spoils_of_war
   end
 
-  def award_spoils(winner)
+  def award_spoils(turn_winner)
     # this method will add a copy of each of the cards in the @spoils_of_war array to the winner of the turn, while still retaining cards in the spoils pile as well.
 
     # does the following line think that
     # winner is a variable, or that it's
     # the Turn method self.winner?
-    if winner.class == Player
-      winners_deck = winner.deck.cards
+    if turn_winner.class == Player
+      winners_deck = turn_winner.deck.cards
       @spoils_of_war.each do |card|
         winners_deck << card
       end

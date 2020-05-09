@@ -30,6 +30,19 @@ class TurnTest < Minitest::Test
     assert_instance_of Turn, turn
   end
 
+  # def test_it_starts
+  #   # INCOMPLETE
+  #   #BASIC turn decks
+  #   deck1 = Deck.new([@card1, @card2, @card5, @card8])
+  #   deck2 = Deck.new([@card3, @card4, @card6, @card7])
+  #   player1 = Player.new("Megan", deck1)
+  #   player2 = Player.new("Aurora", deck2)
+  #   turn = Turn.new(player1, player2)
+  #
+  #   turn.start
+  #   assert_equal 2, turn.spoils_of_war.count
+  # end
+
   def test_it_has_players
     #BASIC turn decks
     deck1 = Deck.new([@card1, @card2, @card5, @card8])
