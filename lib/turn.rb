@@ -18,11 +18,11 @@ class Turn
     end
   end
 
-  # def start
-  #   self.pile_cards
-  #   winner = self.winner
-  #   self.award_spoils(winner)
-  # end
+  def start
+    turn_winner = self.winner
+    pile_cards
+    award_spoils(turn_winner)
+  end
 
   def pile_cards
     if @type == :basic
