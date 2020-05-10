@@ -21,6 +21,7 @@ class Turn
   def start
     turn_winner = self.winner
     pile_cards
+    @spoils_of_war.shuffle!
     award_spoils(turn_winner)
   end
 
