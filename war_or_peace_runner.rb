@@ -2,23 +2,36 @@ require './lib/card'
 require './lib/deck'
 require './lib/player'
 require './lib/turn'
+require './lib/create_suit_method'
 # --------------------------------
-
 # create 52 cards (std deck)
-card1 = Card.new(:heart, 'Jack', 11)
-card2 = Card.new(:heart, '10', 10)
-card3 = Card.new(:heart, '9', 9)
-card4 = Card.new(:diamond, 'Jack', 11)
-card5 = Card.new(:heart, '8', 8)
-card6 = Card.new(:diamond, 'Queen', 12)
-card7 = Card.new(:heart, '3', 3)
-card8 = Card.new(:diamond, '2', 2)
-# put those cards into two decks at random
-deck1 = Deck.new([card1, card2, card5, card8])
-deck2 = Deck.new([card3, card4, card6, card7])
-# create two players with latter decks
-player1 = Player.new('Megan', deck1)
-player2 = Player.new('Aurora', deck2)
+hearts = create_suit(:hearts)
+diamonds = create_suit(:diamonds)
+spades = create_suit(:spades)
+clubs = create_suit(:clubs)
+
+deck_of_52 =
+(hearts << diamonds << spades << clubs).flatten
+
+p deck_of_52.shuffle!
+
+# test of 8 cards
+# card1 = Card.new(:heart, 'Jack', 11)
+# card2 = Card.new(:heart, '10', 10)
+# card3 = Card.new(:heart, '9', 9)
+# card4 = Card.new(:diamond, 'Jack', 11)
+# card5 = Card.new(:heart, '8', 8)
+# card6 = Card.new(:diamond, 'Queen', 12)
+# card7 = Card.new(:heart, '3', 3)
+# card8 = Card.new(:diamond, '2', 2)
+
+# # put those cards into two decks at random
+# deck1 = Deck.new([card1, card2, card5, card8])
+# deck2 = Deck.new([card3, card4, card6, card7])
+
+# # create two players with latter decks
+# player1 = Player.new('Megan', deck1)
+# player2 = Player.new('Aurora', deck2)
 # -------------------
 p "Welcome to War! (or Peace)"
 p "This game will be played with 52 cards."
