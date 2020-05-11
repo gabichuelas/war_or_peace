@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/card_generator'
-require './cards'
+
 
 class CardGeneratorTest < Minitest::Test
 
