@@ -3,9 +3,14 @@ require './lib/deck'
 require './lib/player'
 require './lib/turn'
 require './lib/create_deck_method'
+require './lib/card_generator'
 
-# create 52 cards (std deck)
-deck_of_52 = create_deck()
+# create 52 cards (std deck) with create_deck_method
+# deck_of_52 = create_deck()
+
+# create 52 cards using CardGenerator (Iteration 4!)
+deck_of_52 = CardGenerator.new("cards.txt").cards
+deck_of_52.shuffle!
 
 # divide into two decks
 deck_1 = []
