@@ -3,7 +3,7 @@ require './lib/deck'
 require './lib/player'
 require './lib/turn'
 require './lib/create_suit_method'
-# --------------------------------
+
 # create 52 cards (std deck)
 hearts = create_suit(:hearts)
 diamonds = create_suit(:diamonds)
@@ -13,25 +13,22 @@ clubs = create_suit(:clubs)
 deck_of_52 =
 (hearts << diamonds << spades << clubs).flatten
 
-p deck_of_52.shuffle!
+# put those cards into two decks at random
+deck_of_52.shuffle!
 
-# test of 8 cards
-# card1 = Card.new(:heart, 'Jack', 11)
-# card2 = Card.new(:heart, '10', 10)
-# card3 = Card.new(:heart, '9', 9)
-# card4 = Card.new(:diamond, 'Jack', 11)
-# card5 = Card.new(:heart, '8', 8)
-# card6 = Card.new(:diamond, 'Queen', 12)
-# card7 = Card.new(:heart, '3', 3)
-# card8 = Card.new(:diamond, '2', 2)
+deck_1 = []
+26.times do
+  deck_1 << deck_of_52.shift
+end
+deck_2 = deck_of_52
 
-# # put those cards into two decks at random
-# deck1 = Deck.new([card1, card2, card5, card8])
-# deck2 = Deck.new([card3, card4, card6, card7])
+deck1 = Deck.new(deck_1)
+deck2 = Deck.new(deck_2)
 
-# # create two players with latter decks
-# player1 = Player.new('Megan', deck1)
-# player2 = Player.new('Aurora', deck2)
+# create two players with latter decks
+player1 = Player.new('Megan', deck1)
+player2 = Player.new('Aurora', deck2)
+
 # -------------------
 p "Welcome to War! (or Peace)"
 p "This game will be played with 52 cards."
@@ -39,32 +36,36 @@ p "The players today are Megan and Aurora."
 p "Type 'GO' to start the game!"
 p "------------------------------------------------------------------"
 
-# loop to get user to start game with GO
-
+# User input loop to start game -----------------------
 user = gets.upcase.chomp!
 until user.match(/GO/)
   p "Type 'GO' to start the game!"
   user = gets.upcase.chomp!
 end
 
-# ---------------------------
-
+# Game play loop -----------------------
 turn_count = 0
-until (player1.deck.cards.count == 0 || player2.deck.cards.count == 0) || turn_count == 100
+until (player1.deck.cards.count == 0 || player2.deck.cards.count == 0) || turn_count == 1000000
   turn = Turn.new(player1, player2)
   winner = turn.winner
   turn.start
   turn_count += 1
-  p "Turn #{turn_count}: #{winner.name} won #{turn.spoils_of_war.count} cards"
+  if winner.class == Player
+    if turn.type == :war
+      p "Turn #{turn_count}: WAR - #{winner.name} won #{turn.spoils_of_war.count} cards"
+    else
+      p "Turn #{turn_count}: #{winner.name} won #{turn.spoils_of_war.count} cards"
+    end
+  else
+    p "Turn #{turn_count}: *mutually assured destruction* - #{turn.spoils_of_war.count} cards removed from play"
+  end
 end
 
-# --------------------
-
-# Win/draw statement, end of game.
+# Win/draw statement -----------------------
 if player1.deck.cards.count == 0
-  p "#{player2.name} has won the game!"
+  p "*~*~*~* #{player2.name} has won the game! *~*~*~*"
 elsif player2.deck.cards.count == 0
-  p "#{player1.name} has won the game!"
+  p "*~*~*~* #{player1.name} has won the game! *~*~*~*"
 elsif turn_count == 1000000 || (player1.deck.cards.count == player2.deck.cards.count)
-  p "It's a draw!"
+  p "---- DRAW ----"
 end

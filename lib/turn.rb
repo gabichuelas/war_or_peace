@@ -29,31 +29,15 @@ class Turn
     if @type == :basic
       @spoils_of_war << @player1.deck.cards.shift
       @spoils_of_war << @player2.deck.cards.shift
-    elsif @type == :war
+    elsif @type == :war || @type == :mutually_assured_destruction
       3.times do
         @spoils_of_war << @player1.deck.cards.shift
-      end
-      3.times do
         @spoils_of_war << @player2.deck.cards.shift
       end
-    elsif @type == :mutually_assured_destruction
-      3.times do
-        @player1.deck.cards.shift
-      end
-      3.times do
-        @player2.deck.cards.shift
-      end
-        "All cards lost"
     end
-    # @spoils_of_war
   end
 
   def award_spoils(turn_winner)
-    # this method will add a copy of each of the cards in the @spoils_of_war array to the winner of the turn, while still retaining cards in the spoils pile as well.
-
-    # does the following line think that
-    # winner is a variable, or that it's
-    # the Turn method self.winner?
     if turn_winner.class == Player
       winners_deck = turn_winner.deck.cards
       @spoils_of_war.each do |card|
