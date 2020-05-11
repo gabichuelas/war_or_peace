@@ -2,20 +2,12 @@ require './lib/card'
 require './lib/deck'
 require './lib/player'
 require './lib/turn'
-require './lib/create_suit_method'
+require './lib/create_deck_method'
 
 # create 52 cards (std deck)
-hearts = create_suit(:hearts)
-diamonds = create_suit(:diamonds)
-spades = create_suit(:spades)
-clubs = create_suit(:clubs)
+deck_of_52 = create_deck()
 
-deck_of_52 =
-(hearts << diamonds << spades << clubs).flatten
-
-# put those cards into two decks at random
-deck_of_52.shuffle!
-
+# divide into two decks
 deck_1 = []
 26.times do
   deck_1 << deck_of_52.shift
