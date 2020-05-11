@@ -1,21 +1,15 @@
 require 'csv'
+require './lib/card'
 
 class CardGenerator
   def initialize(file)
-    @file = file
+    @file = CSV.read(file)
   end
 
   def cards
-    # if I do headers: false, doesn't organize
-    # file into a table...also the following
-    # does not work
-    # array = CSV.parse(File.read(@file), headers: false)
-    # fixed_table = []
-    # array.each do |ary|
-    #   ary[0].to_sym
-    #   ary[2].to_i
-    #   fixed_table << ary
-    # end
+    @file.map do |arg|
+      Card.new(arg[0].to_sym, arg[1], arg[2].to_i)
+    end
   end
 end
 
